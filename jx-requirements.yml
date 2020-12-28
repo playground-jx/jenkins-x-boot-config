@@ -1,10 +1,13 @@
+autoUpdate:
+  enabled: false
+  schedule: ""
 cluster:
-  clusterName: ""
+  clusterName: "jx-cluster"
+  devEnvApprovers: []
   environmentGitOwner: ""
-  environmentGitPublic: false
-  project: ""
+  project: "burner-ankkakro"
   provider: gke
-  zone: ""
+  zone: "us-central1-a"
 gitops: true
 environments:
 - key: dev
@@ -16,20 +19,28 @@ ingress:
   tls:
     email: ""
     enabled: false
-    production: false
+    production: true
 kaniko: true
-secretStorage: local
 storage:
+  backup:
+    enabled: false
   logs:
-    enabled: false
-    url: ""
+    enabled: true
+    url: gs://logs-jx-cluster-c79a95c6f9c5
   reports:
-    enabled: false
-    url: ""
+    enabled: true
+    url: gs://reports-jx-cluster-c79a95c6f9c5
   repository:
-    enabled: false
-    url: ""
+    enabled: true
+    url: gs://repository-jx-cluster-c79a95c6f9c5
+secretStorage: vault
+vault:
+  name: jx-cluster
+  bucket: vault-jx-cluster-c79a95c6f9c5
+  key: crypto-key-jx-cluster-c79a95c6f9c5
+  keyring: keyring-jx-cluster-c79a95c6f9c5
+  serviceAccount: jx-cluster-vt
 versionStream:
-  ref: "master"
+  ref: master
   url: https://github.com/jenkins-x/jenkins-x-versions.git
-webhook: lighthouse
+webhook: "lighthouse"
